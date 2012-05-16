@@ -12,6 +12,7 @@ public:
     MainProcess(QObject *parent = 0);
     ~MainProcess();
     void run();
+
 private:
     MainWindow *mainWnd;
 };
