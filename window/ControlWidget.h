@@ -7,8 +7,9 @@
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QSpacerItem>
+#include <QSlider>
 
-class ControlWidget : public QWidget
+class ControlWidget : public QFrame
 {
     Q_OBJECT
 public:
@@ -16,13 +17,15 @@ public:
     ~ControlWidget();
     void resizeEvent(QResizeEvent *e);
     void createPushButton();
+    void createStyleSheet();
 private:
+    QSlider                 *m_musicProgress;
+    QLabel                  *m_musicTitle;
+    QLabel                  *m_musicTimeElapsed;
     QPushButton             *m_Stop;
     QPushButton             *m_Play;
     QPushButton             *m_Next;
     QPushButton             *m_Prev;
-
-    QHBoxLayout *h_layout;
 };
 
 

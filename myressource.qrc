@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/icones">
+        <file>img/cur.png</file>
+        <file>img/next.png</file>
+        <file>img/next_c.png</file>
+        <file>img/next_h.png</file>
+        <file>img/play.png</file>
+        <file>img/play_c.png</file>
+        <file>img/play_h.png</file>
+        <file>img/prev.png</file>
+        <file>img/prev_c.png</file>
+        <file>img/prev_h.png</file>
+        <file>img/stop.png</file>
+        <file>img/stop_c.png</file>
+        <file>img/stop_h.png</file>
+    </qresource>
+</RCC>

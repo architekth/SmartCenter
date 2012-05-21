@@ -10,3 +10,6 @@ HEADERS += \
     window/MainWindow.h \
     window/SidePanelWidget.h \
     window/ControlWidget.h
+
+RESOURCES += \
+    myressource.qrc

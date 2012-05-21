@@ -26,11 +26,11 @@ void SidePanelWidget::createModelView()
     playItem->setEditable(false);
     QStandardItem *libraryItem = new QStandardItem(tr("Bibliothèque"));
     libraryItem->setEditable(false);
-    QStandardItem *artistItem = new QStandardItem(tr("Artiste"));
+    QStandardItem *artistItem = new QStandardItem(tr("Musique"));
     artistItem->setEditable(false);
-    QStandardItem *albumItem = new QStandardItem(tr("Album"));
+    QStandardItem *albumItem = new QStandardItem(tr("Film"));
     albumItem->setEditable(false);
-    QStandardItem *genreItem = new QStandardItem(tr("Genre"));
+    QStandardItem *genreItem = new QStandardItem(tr("Série TV"));
     genreItem->setEditable(false);
     QStandardItem *userListItem = new QStandardItem(tr("Listes de lecture"));
     userListItem->setEditable(false);

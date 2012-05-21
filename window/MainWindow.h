@@ -25,6 +25,7 @@ private:
     void createSidePanelWidget();
     void createControlWidget();
     void createConnexionBtwSignalsSlots();
+    void createStyleSheet();
 private:
     SidePanelWidget         *m_SidePanel;
     ControlWidget           *m_Control;

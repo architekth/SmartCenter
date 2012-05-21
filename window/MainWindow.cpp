@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     createSidePanelWidget();
     createControlWidget();
     createConnexionBtwSignalsSlots();
+    createStyleSheet();
 
     setWindowTitle("Smart Center");
     resize(800, 600);
@@ -86,4 +87,77 @@ void MainWindow::createControlWidget()
 void MainWindow::showViewSlot(QString view)
 {
     qDebug() << "Requested view : " << view;
+}
+
+void MainWindow::createStyleSheet()
+{
+    setStyleSheet("QMenuBar{"
+                  "background-color:#ececec;"
+                  "border-right:none;"
+                  "border-left:none;"
+                  "border-bottom:1px solid #b0b0b0;"
+                  "border-top:none;"
+                  "}"
+                  "QMenuBar::item{"
+                  "background-color:#ececec;"
+                  "}"
+                  "QMenuBar::item:selected{"
+                  "background-color:#68c1fd;"
+                  "margin: 2px;"
+                  "color: white;"
+                  "}"
+                  "QMenu{"
+                  "background-color:#ececec;"
+                  "}"
+                  "QMenu::item:selected{"
+                  "background-color:#68c1fd;"
+                  "}"
+                  "QMenu::separator{"
+                  "background:#cbcbcb;"
+                  "height:1px;"
+                  "margin-left:10px;"
+                  "margin-right:10px;"
+                  "}"
+                  "QMainWindow{"
+                  "background-color:#ececec;"
+                  "}"
+                  "QWidget{"
+                  "font-family:Arial;"
+                  "}");
+    m_SidePanel->setStyleSheet("QTreeView{"
+                               "background-color:#cbcbcb;"
+                               "border-right:1px solid #b0b0b0;"
+                               "border-left:none;"
+                               "border-bottom:none;"
+                               "border-top:1px solid #b0b0b0;"
+                              // "font-size:13px;"
+                               "}"
+                               "QTreeView::item:hover{"
+                               "margin-right:10px;"
+                               "background-color:#68c1fd;"
+                               "color:#ffffff;"
+                               "}"
+                               "QTreeView::item:selected:active{"
+                               "background-color:#68c1fd;"
+                               "color:#ffffff;"
+                               "border:none;"
+                               "margin-right:10px;"
+                               "}"
+                               "QTreeView::item:selected:!active{"
+                               "background-color:#68c1fd;"
+                               "color:#ffffff;"
+                               "border:none;"
+                               "margin-right:10px;"
+                               "}");
+    m_Control->setStyleSheet("QFrame{"
+                             "background-color:#ececec;"
+                             "border-right:none;"
+                             "border-left:none;"
+                             "border-bottom:none;"
+                             "border-top:1px solid #b0b0b0;"
+                             "}"
+                             "QLabel{"
+                             "border:none;"
+                             "font-family:Arial;"
+                             "}");
 }
