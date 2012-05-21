@@ -13,5 +13,8 @@
         <file>img/stop.png</file>
         <file>img/stop_c.png</file>
         <file>img/stop_h.png</file>
+        <file>img/pause.png</file>
+        <file>img/pause_c.png</file>
+        <file>img/pause_h.png</file>
     </qresource>
 </RCC>

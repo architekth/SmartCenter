@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     setWindowTitle("Smart Center");
     resize(800, 600);
+    setMinimumSize(800, 200);
 }
 
 MainWindow::~MainWindow()
@@ -29,7 +30,7 @@ MainWindow::~MainWindow()
 void MainWindow::createMenuBar()
 {
     m_FileMenu = menuBar()->addMenu(tr("Fichier"));
-    //m_EditMenu = menuBar()->addMenu(tr("Edition"));
+    m_EditMenu = menuBar()->addMenu(tr("Edition"));
     m_ControlMenu = menuBar()->addMenu(tr("Contrôle"));
     m_HelpMenu = menuBar()->addMenu(tr("Aide"));
 

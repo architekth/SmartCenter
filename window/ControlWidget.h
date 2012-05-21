@@ -16,16 +16,26 @@ public:
     ControlWidget(QWidget *parent = 0);
     ~ControlWidget();
     void resizeEvent(QResizeEvent *e);
+
+public slots:
+    void playPauseSlot();
+private:
     void createPushButton();
     void createStyleSheet();
+    void createConnexionBtwSignalsSlots();
 private:
     QSlider                 *m_musicProgress;
+    QSlider                 *m_volume;
+    QLabel                  *m_volumeLabel;
+    QLabel                  *m_volumeMore;
+    QLabel                  *m_volumeLess;
     QLabel                  *m_musicTitle;
     QLabel                  *m_musicTimeElapsed;
     QPushButton             *m_Stop;
     QPushButton             *m_Play;
     QPushButton             *m_Next;
     QPushButton             *m_Prev;
+    bool                    isPlaying;
 };
 
 
