@@ -6,8 +6,10 @@
 #include <QMenu>
 #include <QAction>
 #include <QResizeEvent>
+#include <QMessageBox>
 
 #include "SidePanelWidget.h"
+#include "ControlWidget.h"
 
 class MainWindow : public QMainWindow
 {
@@ -16,13 +18,16 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void resizeEvent(QResizeEvent *e);
-
+public slots:
+    void showViewSlot(QString view);
 private:
     void createMenuBar();
     void createSidePanelWidget();
+    void createControlWidget();
     void createConnexionBtwSignalsSlots();
 private:
     SidePanelWidget         *m_SidePanel;
+    ControlWidget           *m_Control;
 
 
     QMenu                   *m_FileMenu;

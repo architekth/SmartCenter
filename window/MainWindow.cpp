@@ -5,9 +5,11 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     m_SidePanel = NULL;
+    m_Control = NULL;
 
     createMenuBar();
     createSidePanelWidget();
+    createControlWidget();
     createConnexionBtwSignalsSlots();
 
     setWindowTitle("Smart Center");
@@ -18,6 +20,8 @@ MainWindow::~MainWindow()
 {
     if(m_SidePanel != NULL)
         delete m_SidePanel;
+    if(m_Control != NULL)
+        delete m_Control;
 }
 
 
@@ -51,18 +55,35 @@ void MainWindow::createMenuBar()
 
 void MainWindow::createConnexionBtwSignalsSlots()
 {
-
+    connect(m_SidePanel, SIGNAL(showView(QString)), this, SLOT(showViewSlot(QString)));
     connect(m_ExitAction, SIGNAL(triggered()), this, SLOT(close()));
 }
 
 
 void MainWindow::resizeEvent(QResizeEvent *e)
 {
-    m_SidePanel->resize(200, e->size().height() - 20);
+    if(m_SidePanel != NULL)
+        m_SidePanel->resize(200, e->size().height() - 20);
+    if(m_Control != NULL)
+    {
+        m_Control->move(200, height() - 100);
+        m_Control->resize(width() - 200, 100);
+    }
 }
 
 void MainWindow::createSidePanelWidget()
 {
     m_SidePanel = new SidePanelWidget(this);
     m_SidePanel->move(0, 20);
+}
+
+void MainWindow::createControlWidget()
+{
+    m_Control = new ControlWidget(this);
+    m_Control->move(200, height());
+}
+
+void MainWindow::showViewSlot(QString view)
+{
+    qDebug() << "Requested view : " << view;
 }
