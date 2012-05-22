@@ -16,5 +16,9 @@
         <file>img/pause.png</file>
         <file>img/pause_c.png</file>
         <file>img/pause_h.png</file>
+        <file>img/2DSelected.png</file>
+        <file>img/2DSelected_h.png</file>
+        <file>img/3DSelected.png</file>
+        <file>img/3DSelected_h.png</file>
     </qresource>
 </RCC>

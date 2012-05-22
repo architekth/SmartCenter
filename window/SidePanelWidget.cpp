@@ -8,11 +8,11 @@ SidePanelWidget::SidePanelWidget(QWidget *parent)
 
     createModelView();
     createConnexionBtwSignalsSlots();
+    initItemSelected();
 }
 
 SidePanelWidget::~SidePanelWidget()
 {
-
 }
 
 void SidePanelWidget::resizeEvent(QResizeEvent *e)
@@ -57,4 +57,9 @@ void SidePanelWidget::createConnexionBtwSignalsSlots()
 void SidePanelWidget::itemChangedSlot(QModelIndex index)
 {
     emit showView(m_Model->itemFromIndex(index)->text());
+}
+
+void SidePanelWidget::initItemSelected()
+{
+    m_View->setCurrentIndex(m_Model->index(0, 0));
 }

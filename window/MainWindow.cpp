@@ -6,10 +6,12 @@ MainWindow::MainWindow(QWidget *parent)
 {
     m_SidePanel = NULL;
     m_Control = NULL;
+    m_libraryBar = NULL;
 
     createMenuBar();
     createSidePanelWidget();
     createControlWidget();
+    createLibraryBar();
     createConnexionBtwSignalsSlots();
     createStyleSheet();
 
@@ -24,6 +26,8 @@ MainWindow::~MainWindow()
         delete m_SidePanel;
     if(m_Control != NULL)
         delete m_Control;
+    if(m_libraryBar != NULL)
+        delete m_libraryBar;
 }
 
 
@@ -71,6 +75,10 @@ void MainWindow::resizeEvent(QResizeEvent *e)
         m_Control->move(200, height() - 100);
         m_Control->resize(width() - 200, 100);
     }
+    if(m_libraryBar != NULL)
+    {
+        m_libraryBar->resize(width() - 200, 25);
+    }
 }
 
 void MainWindow::createSidePanelWidget()
@@ -85,9 +93,25 @@ void MainWindow::createControlWidget()
     m_Control->move(200, height());
 }
 
+void MainWindow::createLibraryBar()
+{
+    m_libraryBar = new LibraryBar(this);
+    m_libraryBar->move(200, 20);
+    m_libraryBar->resize(width() - 200, 25);
+    m_libraryBar->hide();
+}
+
 void MainWindow::showViewSlot(QString view)
 {
-    qDebug() << "Requested view : " << view;
+    if(view == tr("Musique"))
+    {
+        m_libraryBar->createMusicBar();
+        m_libraryBar->setVisible(true);
+    }
+    else
+    {
+        m_libraryBar->setVisible(false);
+    }
 }
 
 void MainWindow::createStyleSheet()
@@ -131,7 +155,7 @@ void MainWindow::createStyleSheet()
                                "border-left:none;"
                                "border-bottom:none;"
                                "border-top:1px solid #b0b0b0;"
-                              // "font-size:13px;"
+                               "font-size:12px;"
                                "}"
                                "QTreeView::item:hover{"
                                "margin-right:10px;"
@@ -161,4 +185,12 @@ void MainWindow::createStyleSheet()
                              "border:none;"
                              "font-family:Arial;"
                              "}");
+
+    m_libraryBar->setStyleSheet("QFrame{"
+                                "background-color:#cbcbcb;"
+                                "border-right:none;"
+                                "border-left:none;"
+                                "border-bottom:1px solid #b0b0b0;"
+                                "border-top:1px solid #b0b0b0;"
+                                "}");
 }

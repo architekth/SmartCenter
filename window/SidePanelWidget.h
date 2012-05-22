@@ -16,13 +16,18 @@ public:
     SidePanelWidget(QWidget *parent = 0);
     ~SidePanelWidget();
     void resizeEvent(QResizeEvent *e);
+
 signals:
     void showView(QString view);
+
 public slots:
     void itemChangedSlot(QModelIndex index);
+
 private:
     void createModelView();
     void createConnexionBtwSignalsSlots();
+    void initItemSelected();
+
 private:
     QTreeView                   *m_View;
     QStandardItemModel          *m_Model;

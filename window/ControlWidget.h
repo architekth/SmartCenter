@@ -19,10 +19,15 @@ public:
 
 public slots:
     void playPauseSlot();
+
+signals:
+    void playPause(bool play);
+
 private:
     void createPushButton();
     void createStyleSheet();
     void createConnexionBtwSignalsSlots();
+
 private:
     QSlider                 *m_musicProgress;
     QSlider                 *m_volume;

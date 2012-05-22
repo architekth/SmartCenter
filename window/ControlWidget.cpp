@@ -28,12 +28,10 @@ void ControlWidget::resizeEvent(QResizeEvent *e)
     m_volumeMore->move(width - 10, 40);
     m_volumeLess->move(width- 101, 40);
     m_musicProgress->resize(m_Stop->pos().x() - 25 , 25);
-
 }
 
 void ControlWidget::createPushButton()
 {
-
     m_musicProgress = new QSlider(Qt::Horizontal, this);
     m_musicProgress->setRange(0, 100);
 
@@ -219,4 +217,6 @@ void ControlWidget::playPauseSlot()
                               "border:none;"
                               "}");
     }
+
+    emit playPause(isPlaying);
 }
