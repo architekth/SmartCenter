@@ -48,6 +48,7 @@ void MainWindow::createMenuBar()
     m_ExitAction = m_FileMenu->addAction(tr("Quitter"));
 
     m_PlayAction = m_ControlMenu->addAction(tr("Lecture"));
+    m_PauseAction = m_ControlMenu->addAction(tr("Pause"));
     m_NextMediaAction = m_ControlMenu->addAction(tr("Suivant"));
     m_PreviousMediaAction = m_ControlMenu->addAction(tr("Précédent"));
     m_StopAction = m_ControlMenu->addAction(tr("Arrêter"));
@@ -55,14 +56,24 @@ void MainWindow::createMenuBar()
     m_VolumeUpAction = m_ControlMenu->addAction(tr("Augmenter le volume"));
     m_VolumeDownAction = m_ControlMenu->addAction(tr("Diminuer le volume"));
 
-    m_OpenAction = m_HelpMenu->addAction(tr("A Propos"));
+    m_OpenAboutAction = m_HelpMenu->addAction(tr("A Propos"));
     m_OpenHelpAction = m_HelpMenu->addAction(tr("Aide"));
 }
 
 void MainWindow::createConnexionBtwSignalsSlots()
 {
     connect(m_SidePanel, SIGNAL(showView(QString)), this, SLOT(showViewSlot(QString)));
+
+    connect(m_Control, SIGNAL(play()), this, SLOT(playFile()));
+    connect(m_Control, SIGNAL(pause()), this, SLOT(pauseFile()));
+    connect(m_Control, SIGNAL(stop()), this, SLOT(stopFile()));
+
+    connect(m_OpenAction, SIGNAL(triggered()), this, SLOT(openFile()));
     connect(m_ExitAction, SIGNAL(triggered()), this, SLOT(close()));
+
+    connect(m_PlayAction, SIGNAL(triggered()), this, SLOT(playFile()));
+    connect(m_PauseAction, SIGNAL(triggered()), this, SLOT(pauseFile()));
+    connect(m_StopAction, SIGNAL(triggered()), this, SLOT(stopFile()));
 }
 
 
@@ -193,4 +204,32 @@ void MainWindow::createStyleSheet()
                                 "border-bottom:1px solid #b0b0b0;"
                                 "border-top:1px solid #b0b0b0;"
                                 "}");
+}
+
+void MainWindow::openFile()
+{
+    // FOR MULTI FILES
+    //QStringList filesName = QFileDialog::getOpenFileNames(this, tr("Ouvrir un ou des médias"));
+    QString fileName = QFileDialog::getOpenFileName(this, "Ouvrir un média", QString(), "*.mp3 *.wma");
+    MusicManager::getInstance()->setMusicPath(fileName);
+    m_Control->showStopState();
+    m_Control->playPauseSlot();
+}
+
+void MainWindow::playFile()
+{
+    MusicManager::getInstance()->Play();
+    m_Control->showPauseButton();
+}
+
+void MainWindow::pauseFile()
+{
+    MusicManager::getInstance()->Pause();
+    m_Control->showPlayButton();
+}
+
+void MainWindow::stopFile()
+{
+    MusicManager::getInstance()->Stop();
+    m_Control->showStopState();
 }

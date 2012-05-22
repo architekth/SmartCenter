@@ -7,10 +7,12 @@
 #include <QAction>
 #include <QResizeEvent>
 #include <QMessageBox>
+#include <QFileDialog>
 
 #include "SidePanelWidget.h"
 #include "ControlWidget.h"
 #include "LibraryBar.h"
+#include "../manager/MusicManager.h"
 
 class MainWindow : public QMainWindow
 {
@@ -22,6 +24,11 @@ public:
 
 public slots:
     void showViewSlot(QString view);
+private slots:
+    void openFile();
+    void playFile();
+    void pauseFile();
+    void stopFile();
 
 private:
     void createMenuBar();
@@ -47,6 +54,7 @@ private:
     QAction                 *m_SettingAction;
     QAction                 *m_ExitAction;
     QAction                 *m_PlayAction;
+    QAction                 *m_PauseAction;
     QAction                 *m_NextMediaAction;
     QAction                 *m_PreviousMediaAction;
     QAction                 *m_StopAction;

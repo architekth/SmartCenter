@@ -176,6 +176,8 @@ void ControlWidget::createStyleSheet()
 void ControlWidget::createConnexionBtwSignalsSlots()
 {
     connect(m_Play, SIGNAL(clicked()), this, SLOT(playPauseSlot()));
+    connect(m_Stop, SIGNAL(clicked()), this, SLOT(stopSlot()));
+    connect(MusicManager::getInstance(), SIGNAL(currentSourceChanged(QString)), this, SLOT(currentSourceChangedSlot(QString)));;
 }
 
 void ControlWidget::playPauseSlot()
@@ -218,5 +220,80 @@ void ControlWidget::playPauseSlot()
                               "}");
     }
 
-    emit playPause(isPlaying);
+    if(isPlaying)
+        emit play();
+    else
+        emit pause();
+}
+
+void ControlWidget::stopSlot()
+{
+    isPlaying = false;
+    showPlayButton();
+    emit stop();
+}
+
+void ControlWidget::showPlayButton()
+{
+    isPlaying = false;
+    m_Play->setStyleSheet("QPushButton{"
+                          "background-image:url(:/icones/img/play.png);"
+                          "margin:-1px;"
+                          "border:none;"
+                          "}"
+                          "QPushButton:hover{"
+                          "background-image:url(:/icones/img/play_h.png);"
+                          "margin:-1px;"
+                          "border:none;"
+                          "}"
+                          "QPushButton:pressed{"
+                          "background-image:url(:/icones/img/play_c.png);"
+                          "margin:-1px;"
+                          "border:none;"
+                          "}");
+}
+
+void ControlWidget::showPauseButton()
+{
+    isPlaying = true;
+    m_Play->setStyleSheet("QPushButton{"
+                          "background-image:url(:/icones/img/pause.png);"
+                          "margin:-1px;"
+                          "border:none;"
+                          "}"
+                          "QPushButton:hover{"
+                          "background-image:url(:/icones/img/pause_h.png);"
+                          "margin:-1px;"
+                          "border:none;"
+                          "}"
+                          "QPushButton:pressed{"
+                          "background-image:url(:/icones/img/pause_c.png);"
+                          "margin:-1px;"
+                          "border:none;"
+                          "}");
+}
+
+void ControlWidget::showStopState()
+{
+    isPlaying = false;
+    m_Play->setStyleSheet("QPushButton{"
+                          "background-image:url(:/icones/img/play.png);"
+                          "margin:-1px;"
+                          "border:none;"
+                          "}"
+                          "QPushButton:hover{"
+                          "background-image:url(:/icones/img/play_h.png);"
+                          "margin:-1px;"
+                          "border:none;"
+                          "}"
+                          "QPushButton:pressed{"
+                          "background-image:url(:/icones/img/play_c.png);"
+                          "margin:-1px;"
+                          "border:none;"
+                          "}");
+}
+
+void ControlWidget::currentSourceChangedSlot(QString name)
+{
+    m_musicTitle->setText(name.right(name.lastIndexOf("/") - 1));
 }

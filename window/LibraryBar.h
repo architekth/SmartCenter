@@ -20,6 +20,8 @@ signals:
 
 private slots:
     void musicBarItemSelectedSlot();
+    void show2DViewSlot();
+    void show3DViewSlot();
 
 private:
     void createConnexionBtwSignalSlot();

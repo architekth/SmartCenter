@@ -8,6 +8,9 @@
 #include <QHBoxLayout>
 #include <QSpacerItem>
 #include <QSlider>
+#include <Phonon/Phonon>
+
+#include "../manager/MusicManager.h"
 
 class ControlWidget : public QFrame
 {
@@ -16,12 +19,17 @@ public:
     ControlWidget(QWidget *parent = 0);
     ~ControlWidget();
     void resizeEvent(QResizeEvent *e);
-
+    void showPlayButton();
+    void showPauseButton();
+    void showStopState();
 public slots:
     void playPauseSlot();
-
+    void stopSlot();
+    void currentSourceChangedSlot(QString name);
 signals:
-    void playPause(bool play);
+    void play();
+    void pause();
+    void stop();
 
 private:
     void createPushButton();

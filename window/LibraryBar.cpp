@@ -138,6 +138,8 @@ void LibraryBar::createConnexionBtwSignalSlot()
     connect(m_Artist, SIGNAL(clicked()), this, SLOT(musicBarItemSelectedSlot()));
     connect(m_Album, SIGNAL(clicked()), this, SLOT(musicBarItemSelectedSlot()));
     connect(m_Genre, SIGNAL(clicked()), this, SLOT(musicBarItemSelectedSlot()));
+    connect(m_2DViewButton, SIGNAL(clicked()), this, SLOT(show2DViewSlot()));
+    connect(m_3DViewButton, SIGNAL(clicked()), this, SLOT(show3DViewSlot()));
 }
 
 void LibraryBar::musicBarItemSelectedSlot()
@@ -167,4 +169,16 @@ void LibraryBar::musicBarItemSelectedSlot()
     }
 
     emit musicBarItemSelected(objName);
+}
+
+void LibraryBar::show2DViewSlot()
+{
+    m_2DViewButton->setChecked(true);
+    m_3DViewButton->setChecked(false);
+}
+
+void LibraryBar::show3DViewSlot()
+{
+    m_2DViewButton->setChecked(false);
+    m_3DViewButton->setChecked(true);
 }
