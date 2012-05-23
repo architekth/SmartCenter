@@ -1,3 +1,4 @@
+#VERSION 0.0.8
 QT += phonon
 SOURCES += \
     main.cpp \

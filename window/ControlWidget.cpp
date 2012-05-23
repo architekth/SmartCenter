@@ -6,7 +6,9 @@ ControlWidget::ControlWidget(QWidget *parent)
     : QFrame(parent)
 {
     isPlaying = false;
+    m_musicSliderPressed = false;
     createPushButton();
+    createSlider();
     createStyleSheet();
     createConnexionBtwSignalsSlots();
 }
@@ -32,12 +34,11 @@ void ControlWidget::resizeEvent(QResizeEvent *e)
 
 void ControlWidget::createPushButton()
 {
-    m_musicProgress = new QSlider(Qt::Horizontal, this);
-    m_musicProgress->setRange(0, 100);
+    m_musicTitle = new QLabel(this);
+    m_musicTitle->setFixedWidth(200);
 
-    m_musicTitle = new QLabel("Radiohead - creep", this);
-
-    m_musicTimeElapsed = new QLabel("0:30 / 3:45", this);
+    m_musicTimeElapsed = new QLabel(this);
+    m_musicTimeElapsed->setFixedWidth(200);
 
     m_Play = new QPushButton(this);
     m_Play->setFixedSize(65, 65);
@@ -57,12 +58,20 @@ void ControlWidget::createPushButton()
 
     m_volumeLess = new QLabel(tr("-"), this);
 
-    m_volume = new QSlider(Qt::Horizontal, this);
-    m_volume->setRange(0, 100);
-
     m_musicTimeElapsed->move(20, 60);
     m_musicTitle->move(10, 25);
+
+}
+
+void ControlWidget::createSlider()
+{
+    m_musicProgress = new QSlider(Qt::Horizontal, this);
+    m_musicProgress->setRange(0, 100);
     m_musicProgress->move(10, 40);
+
+    m_volume = new QSlider(Qt::Horizontal, this);
+    m_volume->setRange(0, 100);
+    m_volume->setValue(100);
 }
 
 void ControlWidget::createStyleSheet()
@@ -177,7 +186,12 @@ void ControlWidget::createConnexionBtwSignalsSlots()
 {
     connect(m_Play, SIGNAL(clicked()), this, SLOT(playPauseSlot()));
     connect(m_Stop, SIGNAL(clicked()), this, SLOT(stopSlot()));
-    connect(MusicManager::getInstance(), SIGNAL(currentSourceChanged(QString)), this, SLOT(currentSourceChangedSlot(QString)));;
+    connect(m_volume, SIGNAL(valueChanged(int)), MusicManager::getInstance(), SLOT(changeVolume(int)));
+    connect(MusicManager::getInstance(), SIGNAL(currentSourceChanged(QString)), this, SLOT(currentSourceChangedSlot(QString)));
+    connect(MusicManager::getInstance(), SIGNAL(totalTimeChanged()), this, SLOT(currentSourceTotalTimeChangedSlot()));
+    connect(MusicManager::getInstance(), SIGNAL(timeChanged(QString)), this, SLOT(currentSourceTimeChangedSlot(QString)));
+    connect(m_musicProgress, SIGNAL(sliderReleased()), this, SLOT(musicSliderReleasedSlot()));
+    connect(m_musicProgress, SIGNAL(sliderPressed()), this, SLOT(musicSliderPressedSlot()));
 }
 
 void ControlWidget::playPauseSlot()
@@ -295,5 +309,36 @@ void ControlWidget::showStopState()
 
 void ControlWidget::currentSourceChangedSlot(QString name)
 {
-    m_musicTitle->setText(name.right(name.lastIndexOf("/") - 1));
+    m_musicTitle->setText(name.right(name.length() - (name.lastIndexOf("/") + 1)));
+}
+
+void ControlWidget::currentSourceTotalTimeChangedSlot()
+{
+    QString qstr_seconde = "";
+    MusicManager::getInstance()->getTotalMusicDuration(&qstr_seconde);
+    m_musicTimeElapsed->setText("0:00 / " + qstr_seconde);
+    qint64 duration = 0;
+    MusicManager::getInstance()->getTotalMusicDuration(&duration);
+    m_musicProgress->setRange(0, duration);
+}
+
+void ControlWidget::currentSourceTimeChangedSlot(QString time)
+{
+    QString qstr_seconde = "";
+    MusicManager::getInstance()->getTotalMusicDuration(&qstr_seconde);
+    m_musicTimeElapsed->setText(time + " / " + qstr_seconde);
+
+    if(!m_musicSliderPressed)
+        m_musicProgress->setValue(MusicManager::getInstance()->getTimeElapsed());
+}
+
+void ControlWidget::musicSliderReleasedSlot()
+{
+    MusicManager::getInstance()->changePositionMusic(m_musicProgress->value());
+    m_musicSliderPressed = false;
+}
+
+void ControlWidget::musicSliderPressedSlot()
+{
+    m_musicSliderPressed = true;
 }

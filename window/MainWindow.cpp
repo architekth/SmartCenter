@@ -211,6 +211,8 @@ void MainWindow::openFile()
     // FOR MULTI FILES
     //QStringList filesName = QFileDialog::getOpenFileNames(this, tr("Ouvrir un ou des médias"));
     QString fileName = QFileDialog::getOpenFileName(this, "Ouvrir un média", QString(), "*.mp3 *.wma");
+    if(fileName.isEmpty())
+        return;
     MusicManager::getInstance()->setMusicPath(fileName);
     m_Control->showStopState();
     m_Control->playPauseSlot();

@@ -26,6 +26,10 @@ public slots:
     void playPauseSlot();
     void stopSlot();
     void currentSourceChangedSlot(QString name);
+    void currentSourceTotalTimeChangedSlot();
+    void currentSourceTimeChangedSlot(QString time);
+    void musicSliderReleasedSlot();
+    void musicSliderPressedSlot();
 signals:
     void play();
     void pause();
@@ -33,6 +37,7 @@ signals:
 
 private:
     void createPushButton();
+    void createSlider();
     void createStyleSheet();
     void createConnexionBtwSignalsSlots();
 
@@ -49,6 +54,8 @@ private:
     QPushButton             *m_Next;
     QPushButton             *m_Prev;
     bool                    isPlaying;
+
+    bool                    m_musicSliderPressed;
 };
 
 
