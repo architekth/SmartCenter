@@ -114,10 +114,14 @@ void MainWindow::createLibraryBar()
 
 void MainWindow::showViewSlot(QString view)
 {
-    if(view == tr("Musique"))
+    if(view == tr("Musique") && !m_libraryBar->isVisible())
     {
         m_libraryBar->createMusicBar();
         m_libraryBar->setVisible(true);
+    }
+    else if(view == tr("Musique") && m_libraryBar->isVisible())
+    {
+        return;
     }
     else
     {

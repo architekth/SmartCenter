@@ -320,6 +320,7 @@ void ControlWidget::currentSourceTotalTimeChangedSlot()
     qint64 duration = 0;
     MusicManager::getInstance()->getTotalMusicDuration(&duration);
     m_musicProgress->setRange(0, duration);
+    m_musicProgress->setValue(0);
 }
 
 void ControlWidget::currentSourceTimeChangedSlot(QString time)
